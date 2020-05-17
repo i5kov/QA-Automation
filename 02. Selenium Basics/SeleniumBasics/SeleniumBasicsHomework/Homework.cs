@@ -18,7 +18,6 @@ namespace SeleniumBasicsHomework
         private const string AutomationPracticeSite = "http://automationpractice.com/index.php";
         // Selectors for Google Test
         private readonly By googleSearchField = By.CssSelector("input.gLFyf");
-        private readonly By googleSearchButton = By.CssSelector(".UUbT9 .gNO89b");
         private readonly By googleResultsAfterSearch = By.CssSelector(".r h3");
         // Selectors for SoftUni Test
         private readonly By softUniTrainingMenu = By.CssSelector(".toggle-nav li.dropdown-item:nth-of-type(2) a");
@@ -58,6 +57,7 @@ namespace SeleniumBasicsHomework
             NavigateTo(SoftUniSite);
             ClickElement(softUniTrainingMenu);
             ClickElement(softUniQAAutomation2020);
+            WaitUntilElementExists(softUniCourseHeader);
             Assert.AreEqual("QA Automation - май 2020", FindElement(softUniCourseHeader).Text);
         }
 
@@ -94,6 +94,7 @@ namespace SeleniumBasicsHomework
             _webDriver.Quit();
         }
 
+
         private IWebElement FindElement(By locator)
         {
             return _webDriver.FindElement(locator);
@@ -119,5 +120,6 @@ namespace SeleniumBasicsHomework
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(timeout));
             return wait.Until(element => element.FindElement(selector));
         }
+
     }
 }
