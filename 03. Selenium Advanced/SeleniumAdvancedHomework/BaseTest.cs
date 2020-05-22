@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace SeleniumAdvancedHomework
         {
             _driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             MaximizeBrowserWindow();
-            NavigateToRegistrationPageWithEmail("123@test.bg");
         }
 
         [TearDown]
@@ -40,6 +40,11 @@ namespace SeleniumAdvancedHomework
             FindElement(selector).SendKeys(text);
         }
 
+        protected string FindElementAndGetAttribute(By selector, string attribute)
+        {
+            return FindElement(selector).GetAttribute(attribute);
+        }
+
         protected IWebElement WaitForElement(By selector, int timeout = 10)
         {
             return new WebDriverWait(_driver, TimeSpan.FromSeconds(timeout))
@@ -50,6 +55,18 @@ namespace SeleniumAdvancedHomework
         {
             SelectElement s = new SelectElement(dropdown);
             s.SelectByText(text);
+        }
+
+        protected void SetAttributeToElement(IWebElement element, string attribute, string value)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) _driver;
+            js.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2]);",
+                element, attribute, value);
+        }
+
+        protected Actions PerformActions()
+        {
+            return new Actions(_driver);
         }
 
         protected IWebElement FindElement(By selector)
@@ -67,13 +84,18 @@ namespace SeleniumAdvancedHomework
             _driver.Manage().Window.Maximize();
         }
 
-        protected void NavigateToRegistrationPageWithEmail(String email)
+        protected void NavigateToRegistrationPageWithEmail(string email)
         {
             _driver.Url = "http://automationpractice.com/index.php";
             FindElementAndClick(_signIn);
             WaitForElement(_createAccountButton, 20);
             FindElementAndFillText(_emailFieldCreateAccount, email);
             FindElementAndClick(_createAccountButton);
+        }
+
+        protected void NavigateToInteractionSection(string section)
+        {
+            _driver.Url = $"http://www.demoqa.com/{section}";
         }
     }
 }

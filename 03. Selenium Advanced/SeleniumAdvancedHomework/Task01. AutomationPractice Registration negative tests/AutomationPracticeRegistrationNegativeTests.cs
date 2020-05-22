@@ -18,6 +18,12 @@ namespace SeleniumAdvancedHomework
         private readonly By _errorMessageField = By.CssSelector(".alert-danger");
         private readonly By _errorMessages = By.CssSelector("ol li");
 
+        [SetUp]
+        public void BeforeEachTest()
+        {
+            NavigateToRegistrationPageWithEmail("123@test.bg");
+        }
+
         [Test]
         public void Test1_Verify_FirstName_Is_Required_When_FirstName_Not_Filled()
         {  
