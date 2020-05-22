@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace SeleniumAdvancedHomework
 {
-    public class Utils
+    public class BaseTest
     {
         protected IWebDriver _driver;
         private readonly By _signIn = By.CssSelector(".login");

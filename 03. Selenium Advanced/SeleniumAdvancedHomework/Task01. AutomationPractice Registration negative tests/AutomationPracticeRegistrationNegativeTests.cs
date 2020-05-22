@@ -1,13 +1,10 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 
 namespace SeleniumAdvancedHomework
 {
-    public class AutomationPracticeRegistrationNegativeTests : Utils
+    public class AutomationPracticeRegistrationNegativeTests : BaseTest
     {
         private readonly By _firstName = By.Id("customer_firstname");
         private readonly By _lastName = By.Id("customer_lastname");
