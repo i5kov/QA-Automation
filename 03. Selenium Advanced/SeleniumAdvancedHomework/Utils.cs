@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -15,9 +16,18 @@ namespace SeleniumAdvancedHomework
         private readonly By _createAccountButton = By.Id("SubmitCreate");
         private readonly By _emailFieldCreateAccount = By.Id("email_create");
 
-        public Utils()
+        [SetUp]
+        public void SetUp()
         {
             _driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            MaximizeBrowserWindow();
+            NavigateToRegistrationPageWithEmail("123@test.bg");
+        }
+
+        [TearDown]
+        public void CloseBrowser()
+        {
+            _driver.Quit();
         }
 
         protected void FindElementAndClick(By selector)
