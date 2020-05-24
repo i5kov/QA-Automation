@@ -97,5 +97,10 @@ namespace SeleniumAdvancedHomework
         {
             _driver.Url = $"http://www.demoqa.com/{section}";
         }
+
+        protected void RefreshPage()
+        {
+            _driver.Navigate().Refresh();
+        }
     }
 }
