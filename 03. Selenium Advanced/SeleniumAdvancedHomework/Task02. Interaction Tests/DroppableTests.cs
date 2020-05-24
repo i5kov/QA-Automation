@@ -16,7 +16,7 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
         private readonly By _dragMeBox = By.Id("draggable");
         private readonly By _dropHereBox = By.Id("droppable");
         private readonly By _dropHereBoxInAcceptTab = By.CssSelector("#acceptDropContainer #droppable");
-        private readonly By _notAcceptableBox = By.Id("notAcceptable");s
+        private readonly By _notAcceptableBox = By.Id("notAcceptable");
         private readonly By _notRevertBox = By.Id("notRevertable");
         private readonly By _dropHereBoxInRevertDraggableTab = By.CssSelector("#revertableDropContainer #droppable");
 
@@ -45,6 +45,7 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
         public void Test2_Verify_NotAcceptableBox_Does_Not_Change_Text_Of_DropHereBox()
         {
             FindElementAndClick(_droppableAcceptTab);
+            WaitForElement(By.Id("acceptDropContainer"), 100);
             string dropBoxText = FindElement(_dropHereBoxInAcceptTab).Text;
             PerformActions()
                 .DragAndDrop(FindElement(_notAcceptableBox), FindElement(_dropHereBoxInAcceptTab))
