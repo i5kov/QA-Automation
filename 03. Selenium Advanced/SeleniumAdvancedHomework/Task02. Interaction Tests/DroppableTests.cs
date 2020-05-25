@@ -11,14 +11,15 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
     {
         private const string Droppable = "droppable";
 
-        private readonly By _droppableAcceptTab = By.Id("droppableExample-tab-accept");
-        private readonly By _revertDraggableTab = By.Id("droppableExample-tab-revertable");
         private readonly By _dragMeBox = By.Id("draggable");
         private readonly By _dropHereBox = By.Id("droppable");
-        private readonly By _dropHereBoxInAcceptTab = By.CssSelector("#acceptDropContainer #droppable");
-        private readonly By _notAcceptableBox = By.Id("notAcceptable");
-        private readonly By _notRevertBox = By.Id("notRevertable");
-        private readonly By _dropHereBoxInRevertDraggableTab = By.CssSelector("#revertableDropContainer #droppable");
+
+        private readonly By _preventPropogationTab = By.Id("droppableExample-tab-preventPropogation");
+        private readonly By _greedyDropBox = By.Id("greedyDropBox");
+        private readonly By _sourceBox = By.Id("dragBox");
+        private readonly By _greedyInnerDroppableBox = By.Id("greedyDropBoxInner");
+        private readonly By _notGreedyDropBox = By.Id("notGreedyDropBox");
+        private readonly By _notGreedyInnerBox = By.Id("notGreedyInnerDropBox");
 
         [SetUp]
         public void BeforeEachTest()
@@ -42,18 +43,28 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
         }
 
         [Test]
-        public void Test2_Verify_NotAcceptableBox_Does_Not_Change_Text_Of_DropHereBox()
+        public void Test2_Verify_InnerDroppableBox_Is_Greedy()
         {
-            FindElementAndClick(_droppableAcceptTab);
-            WaitForElement(By.Id("acceptDropContainer"), 100);
-            string dropBoxText = FindElement(_dropHereBoxInAcceptTab).Text;
+            FindElementAndClick(_preventPropogationTab);
             PerformActions()
-                .DragAndDrop(FindElement(_notAcceptableBox), FindElement(_dropHereBoxInAcceptTab))
+                .DragAndDrop(FindElement(_sourceBox), FindElement(_greedyInnerDroppableBox))
                 .Perform();
-            string dropBoxTextAfterActions = FindElement(_dropHereBoxInAcceptTab).Text;
+            Assert.IsTrue(FindElement(_greedyInnerDroppableBox).Text == "Dropped!");
+            Assert.AreEqual(FindElement(_greedyInnerDroppableBox).GetCssValue("background-color"), "rgba(70, 130, 180, 1)");
+            Assert.AreEqual(FindElement(_greedyDropBox).Text.Split("\r\n")[0], "Outer droppable");
+        }
 
-            Assert.AreEqual(dropBoxText, dropBoxTextAfterActions,
-                "Drop here text was changed, but it should not be!");
+        [Test]
+        public void Test3_Verify_Color_Changed_In_Both_DroppableBoxes()
+        {
+            FindElementAndClick(_preventPropogationTab);
+            PerformActions()
+                .DragAndDrop(FindElement(_sourceBox), FindElement(_notGreedyInnerBox))
+                .Perform();
+            Assert.AreEqual(FindElement(_notGreedyDropBox).Text.Split("\r\n")[0], "Dropped!");
+            Assert.AreEqual(FindElement(_notGreedyDropBox).GetCssValue("background-color"), "rgba(70, 130, 180, 1)");
+            Assert.IsTrue(FindElement(_notGreedyInnerBox).Text == "Dropped!");
+            Assert.AreEqual(FindElement(_notGreedyInnerBox).GetCssValue("background-color"), "rgba(70, 130, 180, 1)");       
         }
     }
 }
