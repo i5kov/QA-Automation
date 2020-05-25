@@ -9,6 +9,8 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
         private const string Dragabble = "dragabble";
 
         private readonly By _dragBox = By.Id("dragBox");
+        private readonly By _axisRestrictedTab = By.Id("draggableExample-tab-axisRestriction");
+        private readonly By _restrictedX = By.Id("restrictedX");
 
         [SetUp]
         public void BeforeEachTest()
@@ -43,6 +45,19 @@ namespace SeleniumAdvancedHomework.Task02._Interaction_Tests
             SetAttributeToElement(FindElement(_dragBox), "style", "position: relative;");
             string currentDragBoxPosition = FindElementAndGetAttribute(_dragBox, "style");
             Assert.AreEqual(dragBoxStartingPosition, currentDragBoxPosition, "Drag box is not in the starting position.");
+        }
+
+        [Test]
+        public void Test3_Verify_RestrictedX_Box_Is_Able_ToBeMoved_Only_X_Axis()
+        {
+            FindElementAndClick(_axisRestrictedTab);
+            PerformActions()
+                .ClickAndHold(FindElement(_restrictedX))
+                .MoveByOffset(100, 350)
+                .Perform();
+            string restrictedXBoxPositionTopValue = FindElementAndGetAttribute(_restrictedX, "style").Split("; ")[2];
+
+            Assert.AreEqual(restrictedXBoxPositionTopValue, "top: 0px;");
         }
     }
 }
