@@ -11,7 +11,7 @@ namespace PajeObjectModel_Homework.Pages.AutomationPractice
 
         public CreateAccountPage CreateAccount(string email)
         {
-            WaitUntilElementExists(_emailFieldForCreateAccount, 15).SendKeys(email);
+            WaitUntilElementExists(_emailFieldForCreateAccount, 20).SendKeys(email);
             ClickElement(_createAccountButton);
             return new CreateAccountPage(Driver);
         }

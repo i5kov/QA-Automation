@@ -39,10 +39,16 @@ namespace PajeObjectModel_Homework.Pages
             element.Click();
         }
 
+        protected void SelectFromDropdownByText(IWebElement dropdown, string text)
+        {
+            SelectElement s = new SelectElement(dropdown);
+            s.SelectByText(text);
+        }
+
         protected IWebElement WaitUntilElementExists(By selector, int timeout = 10)
         {
             var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout));
-            return wait.Until(element => element.FindElement(selector));
+            return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(selector));
         }
     }
 }
