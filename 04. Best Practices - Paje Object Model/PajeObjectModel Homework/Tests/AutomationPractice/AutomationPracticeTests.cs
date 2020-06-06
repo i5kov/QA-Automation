@@ -33,7 +33,7 @@ namespace PajeObjectModel_Homework.Tests.AutomationPractice
         [TestCase("Test FirstName","",             "Test Password","Test Address","Test City","lastname is required.")]
         [TestCase("Test FirstName","Test LastName","",             "Test Address","Test City","passwd is required.")]
         [TestCase("Test FirstName","Test LastName","Test Password","",            "Test City","address1 is required.")]
-        [TestCase("Test FirstName","Test LastName","Test Password","Test Address","",         "city is required")]
+        [TestCase("Test FirstName","Test LastName","Test Password","Test Address","",         "city is required.")]
         public void Verify_Required_Fields(string firstName, string lastName, string password, string address, string city, string errorMessage)
         {
             string expectedError = errorMessage;
