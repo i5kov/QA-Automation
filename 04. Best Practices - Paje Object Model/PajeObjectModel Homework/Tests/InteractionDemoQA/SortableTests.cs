@@ -48,5 +48,11 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
             List<string> orderAfterResfresh = sortablePage.OrderOfBoxes;
             CollectionAssert.AreEqual(orderInBeginning, orderAfterResfresh);
         }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            CloseBrowser();
+        }
     }
 }

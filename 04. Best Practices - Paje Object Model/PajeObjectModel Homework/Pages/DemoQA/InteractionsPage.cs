@@ -1,13 +1,10 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
     class InteractionsPage : BasePage
     {
-        public InteractionsPage(IWebDriver driver) : base(driver)
+        public InteractionsPage(IWebDriver driver) : base(driver) 
         {
 
         }
@@ -16,13 +13,14 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
         {
             Driver.Navigate().GoToUrl($"http://www.demoqa.com/{sectionName.ToLower()}");
 
-            switch (sectionName.ToLower())
+            return (sectionName.ToLower()) switch
             {
-                case "dragabble": return new DragabblePage(Driver, subMenu);
-                case "droppable": return new DroppablePage(Driver, subMenu);
-                case "sortable": return new SortablePage(Driver, subMenu);
-                default: return null;
-            }
+                "dragabble" => new DragabblePage(Driver, subMenu),
+                "droppable" => new DroppablePage(Driver, subMenu),
+                "sortable" => new SortablePage(Driver, subMenu),
+                "selectable" => new SelectablePage(Driver, subMenu),
+                _ => null,
+            };
         }
     }
 }
