@@ -8,16 +8,24 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
     class InteractionsPage : BasePage
     {
 
-        private IWebElement sectionMenu(string section) => FindElement(By.XPath($"//div[text()='{section}']"));
+        private IWebElement sectionMenu(string section) => FindElement(By.XPath($"//span[text()='{section}']"));
 
         public InteractionsPage(IWebDriver driver) : base(driver)
         {
 
         }
 
-        public void NavigateToInteractionsSection(string sectionName)
+        public dynamic NavigateToInteractionsSection(string sectionName)
         {
-            ClickElement(sectionMenu(sectionName));
+            Driver.Navigate().GoToUrl($"http://www.demoqa.com/{sectionName.ToLower()}");
+
+            switch (sectionName.ToLower())
+            {
+                case "dragabble":
+
+                    return new DragabblePage(Driver);
+                default: return null;
+            }
         }
     }
 }

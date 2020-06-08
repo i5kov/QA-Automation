@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,21 @@ namespace PajeObjectModel_Homework.Pages
         {
             var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout));
             return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(selector));
+        }
+
+        protected void ScrollDown()
+        {
+            ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+        }
+
+        protected Actions PerformActions()
+        {
+            return new Actions(Driver);
+        }
+
+        protected void RefreshPage()
+        {
+            Driver.Navigate().Refresh();
         }
     }
 }
