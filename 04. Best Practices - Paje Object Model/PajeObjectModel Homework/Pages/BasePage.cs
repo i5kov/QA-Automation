@@ -66,5 +66,10 @@ namespace PajeObjectModel_Homework.Pages
         {
             Driver.Navigate().Refresh();
         }
+
+        protected void GoToSpecificSubMenu(string subMenuText)
+        {
+            ClickElement(By.XPath($"//a[text()='{subMenuText}']"));
+        }
     }
 }

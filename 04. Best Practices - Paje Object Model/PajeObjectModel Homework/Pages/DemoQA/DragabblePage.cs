@@ -10,9 +10,9 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
         private readonly By _restrictedX = By.Id("restrictedX");
         private IWebElement _subMenu(string subMenuText) => FindElement(By.XPath($"//a[text()='{subMenuText}']"));
 
-        public DragabblePage(IWebDriver driver) : base(driver)
+        public DragabblePage(IWebDriver driver, string subMenu) : base(driver)
         {
-
+            GoToSpecificSubMenu(subMenu);
         }
 
         public bool IsDisplayed => FindElement(_mainHeader).Text == "Dragabble" ? true : false;

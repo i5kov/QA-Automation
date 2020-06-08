@@ -1,28 +1,25 @@
 ﻿using NUnit.Framework;
 using PajeObjectModel_Homework.Pages.DemoQA;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
 {
     class DragabbleTests : BaseTest
     {
 
-        private DragabblePage _dragabblePage;
+        private InteractionsPage _interactionsPage;
 
         [SetUp]
         public void Befor_eEachTest()
         {
             StartBrowser();
             NavigateToURL(URLs.DemoQASite);
-            _dragabblePage = new HomePage(Driver).GoToInteractionsMenu().NavigateToInteractionsSection("Dragabble");
+            _interactionsPage = new HomePage(Driver).GoToInteractionsMenu();
         }
 
         [Test]
         public void Test1_SimpleDraggable_Verify_DragBox_Position_Changed()
         {
+            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Simple");
             Assert.IsTrue(_dragabblePage.IsDisplayed);
 
             string dragBoxStartingPosition = _dragabblePage.GetElementPosition;
@@ -36,6 +33,7 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         [Test]
         public void Test2_Verify_DragBox_Is_In_StartingPosition_After_PageRefresh()
         {
+            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Simple");
             Assert.IsTrue(_dragabblePage.IsDisplayed);
 
             string dragBoxStartingPosition = _dragabblePage.GetElementPosition;
@@ -50,6 +48,7 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         [Test]
         public void Test3_Verify_RestrictedX_Box_Is_Able_ToBeMoved_Only_X_Axis()
         {
+            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Axis Restricted");
             Assert.IsTrue(_dragabblePage.IsDisplayed);
 
             _dragabblePage.ClickOnSubMenu("Axis Restricted");
