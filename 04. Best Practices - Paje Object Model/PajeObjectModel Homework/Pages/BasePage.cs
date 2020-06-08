@@ -62,7 +62,7 @@ namespace PajeObjectModel_Homework.Pages
             return new Actions(Driver);
         }
 
-        protected void RefreshPage()
+        public void RefreshPage()
         {
             Driver.Navigate().Refresh();
         }

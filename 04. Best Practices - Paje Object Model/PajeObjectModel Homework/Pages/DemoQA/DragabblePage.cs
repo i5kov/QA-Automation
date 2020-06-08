@@ -2,11 +2,13 @@
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
-    internal class DragabblePage : BasePage
+    public class DragabblePage : BasePage
     {
 
         private readonly By _mainHeader = By.CssSelector(".main-header");
         private readonly By _dragBox = By.Id("dragBox");
+        private readonly By _restrictedX = By.Id("restrictedX");
+        private IWebElement _subMenu(string subMenuText) => FindElement(By.XPath($"//a[text()='{subMenuText}']"));
 
         public DragabblePage(IWebDriver driver) : base(driver)
         {
@@ -17,14 +19,21 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
 
         public string GetElementPosition => FindElement(_dragBox).GetAttribute("style");
 
-        public void MoveElementByOffset(int x, int y)
+        public string GetRestrictedElementPosition => FindElement(_restrictedX).GetAttribute("style").Split("; ")[2];
+
+        public void MoveElementByOffset(int x, int y, bool isRestricted)
         {
-            RefreshPage();
+            var locatorToBeUsed = isRestricted ? _restrictedX : _dragBox;
             PerformActions()
-               .ClickAndHold(FindElement(_dragBox))
+               .ClickAndHold(FindElement(locatorToBeUsed))
                .MoveByOffset(x, y)
                .Release()
                .Perform();
+        }
+
+        public void ClickOnSubMenu(string subMenuText)
+        {
+            ClickElement(_subMenu(subMenuText));
         }
     }
 }
