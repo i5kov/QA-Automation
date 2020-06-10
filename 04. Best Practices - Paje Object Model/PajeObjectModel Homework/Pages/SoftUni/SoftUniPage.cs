@@ -9,8 +9,10 @@ namespace PajeObjectModel_Homework.Pages.SoftUni
     {
 
         private readonly By _englishLanguageLink = By.CssSelector("a[data-lang-id='en']");
-        private IWebElement _mainMenuLink(string linkText) => FindElement(By.XPath($"//ul[contains(@class, 'horizontal-list')]//li//span[text()='{linkText}']"));
-        private IWebElement _course(string courseName) => FindElement(By.XPath($"//a[text()='{courseName}']"));
+        private IWebElement MainMenuLink(string linkText) => FindElement(By.XPath($"//ul[contains(@class, 'horizontal-list')]//li//span[text()='{linkText}']"));
+        private IWebElement Course(string courseName) => FindElement(By.XPath($"//a[text()='{courseName}']"));
+
+        private readonly By _activeModule = By.XPath("//div[contains(@class, 'no-padding')]//div[contains(@class, 'sub')]");
 
         public SoftUniPage(IWebDriver driver) : base(driver) { }
 
@@ -19,15 +21,21 @@ namespace PajeObjectModel_Homework.Pages.SoftUni
             ClickElement(_englishLanguageLink);
         }
 
-        public void ClickOnLinkFromMainMenu(string linkText)
+        internal SoftUniQACoursePage GoToQAAutomationCourse()
         {
-            ClickElement(_mainMenuLink(linkText));
+            ClickElement(By.XPath("//a[contains(@href, 'Quality-Assurance')]"));
+            ClickElement(By.XPath("//h4[contains(text(),'QA Automation')]"));
+            return new SoftUniQACoursePage(Driver);
         }
 
-        public SoftUniQACoursePage ClickOnCourseLink(string courseName)
+        public void ClickOnLinkFromMainMenu(string linkText)
         {
-            ClickElement(_course(courseName));
-            return new SoftUniQACoursePage(Driver);
+            ClickElement(MainMenuLink(linkText));
+        }
+
+        public void ClickOnActiveModulesInOpenCoursesSection()
+        {
+            FindElements(_activeModule)[0].Click();
         }
     }
 }

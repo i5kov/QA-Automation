@@ -23,7 +23,8 @@ namespace PajeObjectModel_Homework.Tests.SoftUni
 
             softUniPage.ChangeSiteLanguageToEnglish();
             softUniPage.ClickOnLinkFromMainMenu("Trainings");
-            var softUniQACoursePage = softUniPage.ClickOnCourseLink("QA Automation - May 2020");
+            softUniPage.ClickOnActiveModulesInOpenCoursesSection();
+            SoftUniQACoursePage softUniQACoursePage = softUniPage.GoToQAAutomationCourse();
 
             Assert.AreEqual("QA Automation - May 2020", softUniQACoursePage.GetCourseTitle());
         }
