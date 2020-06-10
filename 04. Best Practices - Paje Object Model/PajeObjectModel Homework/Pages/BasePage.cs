@@ -69,7 +69,18 @@ namespace PajeObjectModel_Homework.Pages
 
         protected void GoToSpecificSubMenu(string subMenuText)
         {
-            ClickElement(By.XPath($"//a[text()='{subMenuText}']"));
+            if (subMenuText != null)
+            {
+                ClickElement(By.XPath($"//a[text()='{subMenuText}']"));
+            }     
+        }
+
+        public void MoveByOffset(IWebElement element, int offsetX, int offsetY)
+        {
+            PerformActions()
+                .ClickAndHold(element)
+                .MoveByOffset(350, 49)
+                .Perform();
         }
     }
 }

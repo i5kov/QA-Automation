@@ -19,6 +19,7 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
                 "droppable" => new DroppablePage(Driver, subMenu),
                 "sortable" => new SortablePage(Driver, subMenu),
                 "selectable" => new SelectablePage(Driver, subMenu),
+                "resizable" => new ResizablePage(Driver, subMenu),
                 _ => null,
             };
         }
