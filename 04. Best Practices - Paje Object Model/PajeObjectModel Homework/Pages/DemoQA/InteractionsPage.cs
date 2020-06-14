@@ -15,7 +15,7 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
             return (sectionName.ToLower()) switch
             {
                 "dragabble" => new DragabblePage(Driver),
-                //"droppable" => new DroppablePage(Driver),
+                "droppable" => new DroppablePage(Driver),
                 "sortable" => new SortablePage(Driver),
                 "selectable" => new SelectablePage(Driver),
                 "resizable" => new ResizablePage(Driver),
