@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
-    public class SortablePage : BasePage
+    public class SortablePage : InteractionsPage
     {
         private IWebElement Box(int boxNumber) => FindElement(By.CssSelector($"div.list-group-item:nth-of-type({boxNumber})"));
         private List<IWebElement> AllBoxes => FindElements(By.CssSelector(".vertical-list-container div")).ToList();

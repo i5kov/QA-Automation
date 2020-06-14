@@ -2,7 +2,7 @@
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
-    public class ResizablePage : BasePage
+    public class ResizablePage : InteractionsPage
     {
 
         private readonly By _resizeBoxWithRestriction = By.Id("resizableBoxWithRestriction");

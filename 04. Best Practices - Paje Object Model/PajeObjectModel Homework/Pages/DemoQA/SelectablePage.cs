@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
-    public class SelectablePage : BasePage
+    public class SelectablePage : InteractionsPage
     {
 
         private readonly By _selectableOptions = By.CssSelector("#verticalListContainer li");
