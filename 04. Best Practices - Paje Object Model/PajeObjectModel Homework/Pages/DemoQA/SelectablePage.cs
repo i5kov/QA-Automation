@@ -9,10 +9,7 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
         private readonly By _selectableOptions = By.CssSelector("#verticalListContainer li");
         private IWebElement SelectableOption(int option) => FindElement(By.CssSelector($"#verticalListContainer li:nth-of-type({option})"));
 
-        public SelectablePage(IWebDriver driver, string subMenu) : base(driver)
-        {
-            GoToSpecificSubMenu(subMenu);
-        }
+        public SelectablePage(IWebDriver driver) : base(driver) { }
 
         public int SelectableOptions 
         {

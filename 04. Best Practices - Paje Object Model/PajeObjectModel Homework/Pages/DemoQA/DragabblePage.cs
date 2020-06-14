@@ -2,20 +2,12 @@
 
 namespace PajeObjectModel_Homework.Pages.DemoQA
 {
-    public class DragabblePage : BasePage
+    public class DragabblePage : InteractionsPage
     {
-
-        private readonly By _mainHeader = By.CssSelector(".main-header");
         private readonly By _dragBox = By.Id("dragBox");
         private readonly By _restrictedX = By.Id("restrictedX");
-        private IWebElement _subMenu(string subMenuText) => FindElement(By.XPath($"//a[text()='{subMenuText}']"));
 
-        public DragabblePage(IWebDriver driver, string subMenu) : base(driver)
-        {
-            GoToSpecificSubMenu(subMenu);
-        }
-
-        public bool IsDisplayed => FindElement(_mainHeader).Text == "Dragabble" ? true : false;
+        public DragabblePage(IWebDriver driver) : base(driver) { }
 
         public string GetElementPosition => FindElement(_dragBox).GetAttribute("style");
 
@@ -29,11 +21,6 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
                .MoveByOffset(x, y)
                .Release()
                .Perform();
-        }
-
-        public void ClickOnSubMenu(string subMenuText)
-        {
-            ClickElement(_subMenu(subMenuText));
         }
     }
 }

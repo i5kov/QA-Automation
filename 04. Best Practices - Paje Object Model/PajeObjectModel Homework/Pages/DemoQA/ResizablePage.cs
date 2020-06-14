@@ -10,10 +10,7 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
         private readonly By _resizableBox = By.Id("resizable");
         private readonly By _handleForResizableBox = By.CssSelector("#resizable .react-resizable-handle");
 
-        public ResizablePage(IWebDriver driver, string subMenu) : base(driver)
-        {
-            GoToSpecificSubMenu(subMenu);
-        }
+        public ResizablePage(IWebDriver driver) : base(driver) { }
 
         public string SizeOfResizeBox(bool isRestricted)
         {

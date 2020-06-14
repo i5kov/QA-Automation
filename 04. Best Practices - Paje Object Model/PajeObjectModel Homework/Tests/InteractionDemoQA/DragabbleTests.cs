@@ -6,22 +6,19 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
     class DragabbleTests : BaseTest
     {
 
-        private InteractionsPage _interactionsPage;
+        private DragabblePage _dragabblePage;
 
         [SetUp]
         public void Befor_eEachTest()
         {
             StartBrowser();
             NavigateToURL(URLs.DemoQASite);
-            _interactionsPage = new HomePage(Driver).GoToInteractionsMenu();
+            _dragabblePage = new HomePage(Driver).NavigateToInteractionsPage().NavigateToInteractionsSection("Dragabble");
         }
 
         [Test]
         public void Test1_SimpleDraggable_Verify_DragBox_Position_Changed()
         {
-            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Simple");
-            Assert.IsTrue(_dragabblePage.IsDisplayed);
-
             string dragBoxStartingPosition = _dragabblePage.GetElementPosition;
 
             _dragabblePage.MoveElementByOffset(500, 350, false);
@@ -33,9 +30,6 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         [Test]
         public void Test2_Verify_DragBox_Is_In_StartingPosition_After_PageRefresh()
         {
-            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Simple");
-            Assert.IsTrue(_dragabblePage.IsDisplayed);
-
             string dragBoxStartingPosition = _dragabblePage.GetElementPosition;
 
             _dragabblePage.MoveElementByOffset(500, 500, false);
@@ -48,16 +42,11 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         [Test]
         public void Test3_Verify_RestrictedX_Box_Is_Able_ToBeMoved_Only_X_Axis()
         {
-            DragabblePage _dragabblePage = _interactionsPage.NavigateToInteractionsSection("Dragabble", "Axis Restricted");
-            Assert.IsTrue(_dragabblePage.IsDisplayed);
-
             _dragabblePage.ClickOnSubMenu("Axis Restricted");
 
             _dragabblePage.MoveElementByOffset(100, 350, true);
 
-            string restrictedXBoxPositionTopValue = _dragabblePage.GetRestrictedElementPosition;
-
-            Assert.AreEqual(restrictedXBoxPositionTopValue, "top: 0px;");
+            Assert.AreEqual(_dragabblePage.GetRestrictedElementPosition, "top: 0px;");
         }
 
 

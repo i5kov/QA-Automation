@@ -8,25 +8,24 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
     class SelectableTests : BaseTest
     {
 
-        private InteractionsPage _interactionsPage;
+        private SelectablePage _selectablePage;
 
         [SetUp]
         public void BeforeEachTest()
         {
             StartBrowser();
             NavigateToURL(URLs.DemoQASite);
-            _interactionsPage = new HomePage(Driver).GoToInteractionsMenu();
+            _selectablePage = new HomePage(Driver).NavigateToInteractionsPage().NavigateToInteractionsSection("Selectable");
         }
 
         [Test]
         public void Test1_Verify_All_SelectableElements_Are_Selected()
         {
-            SelectablePage selectablePage = _interactionsPage.NavigateToInteractionsSection("Selectable", "List");
-            int selectableOptionsCount = selectablePage.SelectableOptions;
+            int selectableOptionsCount = _selectablePage.SelectableOptions;
 
-            selectablePage.SelectOptions(selectableOptionsCount);
+            _selectablePage.SelectOptions(selectableOptionsCount);
 
-            int actualCountOfSelectedItems = selectablePage.SelectedOptions;
+            int actualCountOfSelectedItems = _selectablePage.SelectedOptions;
 
             int expectedCountOfSelectedItems = 4;
             Assert.AreEqual(expectedCountOfSelectedItems, actualCountOfSelectedItems);

@@ -12,7 +12,7 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         {
             StartBrowser();
             NavigateToURL(URLs.DemoQASite);
-            _resizablePage = new HomePage(Driver).GoToInteractionsMenu().NavigateToInteractionsSection("Resizable", null);
+            _resizablePage = new HomePage(Driver).NavigateToInteractionsPage().NavigateToInteractionsSection("Resizable");
         }
 
         [Test]

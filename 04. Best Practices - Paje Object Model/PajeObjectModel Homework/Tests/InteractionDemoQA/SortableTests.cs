@@ -6,14 +6,14 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
 {
     class SortableTests : BaseTest
     {
-        private InteractionsPage _interactionsPage;
+        private SortablePage _sortablePage;
 
         [SetUp]
         public void BeforeEachTest()
         {
             StartBrowser();
             NavigateToURL(URLs.DemoQASite);
-            _interactionsPage = new HomePage(Driver).GoToInteractionsMenu();
+            _sortablePage = new HomePage(Driver).NavigateToInteractionsPage().NavigateToInteractionsSection("Sortable");
         }
 
         [Test]
@@ -23,11 +23,10 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
             {
                 "Two", "Three", "Four", "Five", "Six", "One"
             };
-            SortablePage sortablePage = _interactionsPage.NavigateToInteractionsSection("Sortable", "List");
 
-            sortablePage.ChangePositionOfBox(1, 500);
+            _sortablePage.ChangePositionOfBox(1, 500);
 
-            List<string> actualOrder = sortablePage.OrderOfBoxes;
+            List<string> actualOrder = _sortablePage.OrderOfBoxes;
 
             CollectionAssert.AreEqual(expectedOrder, actualOrder);
         }
@@ -35,17 +34,16 @@ namespace PajeObjectModel_Homework.Tests.InteractionDemoQA
         [Test]
         public void Test2_Verify_Order_Of_Boxes_After_Moving_Elements_And_Page_Refresh()
         {
-            SortablePage sortablePage = _interactionsPage.NavigateToInteractionsSection("Sortable", "List");
-            List<string> orderInBeginning = sortablePage.OrderOfBoxes;
+            List<string> orderInBeginning = _sortablePage.OrderOfBoxes;
 
-            sortablePage.ChangeOrderOfAllBoxes();
+            _sortablePage.ChangeOrderOfAllBoxes();
 
-            List<string> orderAfterActions = sortablePage.OrderOfBoxes;
+            List<string> orderAfterActions = _sortablePage.OrderOfBoxes;
             CollectionAssert.AreNotEqual(orderInBeginning, orderAfterActions);
 
-            sortablePage.RefreshPage();
+            _sortablePage.RefreshPage();
 
-            List<string> orderAfterResfresh = sortablePage.OrderOfBoxes;
+            List<string> orderAfterResfresh = _sortablePage.OrderOfBoxes;
             CollectionAssert.AreEqual(orderInBeginning, orderAfterResfresh);
         }
 

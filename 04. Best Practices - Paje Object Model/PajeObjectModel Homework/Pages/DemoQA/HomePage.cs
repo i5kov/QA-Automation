@@ -7,13 +7,13 @@ namespace PajeObjectModel_Homework.Pages.DemoQA
 {
     class HomePage : BasePage
     {
-        private IWebElement _interactionsMenu => Driver.FindElement(By.XPath($"//div[contains(@class, 'top-card')]//h5[text()='Interactions']"));
+        private IWebElement InteractionsMenu => Driver.FindElement(By.XPath($"//div[contains(@class, 'top-card')]//h5[text()='Interactions']"));
 
         public HomePage(IWebDriver driver) : base(driver) { }
 
-        public InteractionsPage GoToInteractionsMenu()
+        public InteractionsPage NavigateToInteractionsPage()
         {
-            ClickElement(_interactionsMenu);
+            ClickElement(InteractionsMenu);
             return new InteractionsPage(Driver);
         }
     }
