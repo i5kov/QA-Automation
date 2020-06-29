@@ -19,10 +19,10 @@ namespace BookRequests.Model
         public string Email { get; set; }
 
         [JsonProperty("householdId", NullValueHandling = NullValueHandling.Ignore)]
-        public long? HouseholdId { get; set; }
+        public int HouseholdId { get; set; }
 
         [JsonProperty("wishlistId", NullValueHandling = NullValueHandling.Ignore)]
-        public long? WishlistId { get; set; }
+        public int WishlistId { get; set; }
 
         [JsonProperty("updatedAt", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? UpdatedAt { get; set; }

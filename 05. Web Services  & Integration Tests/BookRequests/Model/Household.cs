@@ -1,15 +1,12 @@
 ﻿using System;
-
-using System.Globalization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace BookRequests.Model
 {
     public class Household
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

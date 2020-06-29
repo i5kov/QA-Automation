@@ -1,5 +1,4 @@
 using BookRequests.Model;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using System;
@@ -17,6 +16,7 @@ namespace BookRequests
             { "Content-Type", ApplicationJson }
         };
         private RestClient _client;
+        private Household _createdHousehold;
         private User _createdUser1;
         private User _createdUser2;
 
@@ -35,24 +35,26 @@ namespace BookRequests
 
             RestRequest request = new RestRequest("/households", Method.POST);
             request.AddParameter(ApplicationJson, household.ToJson(), ParameterType.RequestBody);
-            _client.Post(request);
+            string content = _client.Post(request).Content;
+
+            _createdHousehold = Household.FromJson(content);
 
             Assert.AreEqual(newHouseholdName, household.Name);
         }
-
 
         [Test]
         public void Task2_AddTwoDifferentUsers()
         {
             string user1Random = GenerateRandomTestString();
             string user2Random = GenerateRandomTestString();
+            int householdId = _createdHousehold.Id;
 
             var user1 = new User()
             {
                 Email = $"user-{user1Random}@mailinator.com",
                 FirstName = $"user-{user1Random}",
                 LastName = $"{user1Random}",
-                HouseholdId = 1
+                HouseholdId = householdId
             };
 
             var user2 = new User()
@@ -60,7 +62,7 @@ namespace BookRequests
                 Email = $"user-{user2Random}@mailinator.com",
                 FirstName = $"user-{user2Random}",
                 LastName = $"{user2Random}",
-                HouseholdId = 1
+                HouseholdId = householdId
             };
 
             string createdUser1Response = CreateUserRequest("/users", user1).Content;
@@ -69,16 +71,29 @@ namespace BookRequests
 
             string createdUser2Response = CreateUserRequest("/users", user2).Content;
             _createdUser2 = User.FromJson(createdUser2Response);
-
-
         }
 
         [Test]
-        public void Task3_()
+        public void Task3_AddTwoBooksForNewCreatedUser()
         {
-            int a = _createdUser1.Id;
-            int b = _createdUser2.Id;
+            int user1WishlistId = _createdUser1.WishlistId;
+            int user2WishlistId = _createdUser2.WishlistId;
+
+            AddBooksForUser(new int[] { 1, 2 }, user1WishlistId);
+            AddBooksForUser(new int[] { 3, 4 }, user2WishlistId);
         }
+
+        [Test]
+        public void Task4_AddTwoBooksForNewCreatedUser()
+        {
+            int householdId = _createdHousehold.Id;
+
+            RestRequest restRequest = new RestRequest($"/households/{householdId}/wishlistBooks", Method.GET);
+            IRestResponse restResponse = _client.Get(restRequest);
+
+
+        }
+
 
 
         private string GenerateRandomTestString()
@@ -89,9 +104,22 @@ namespace BookRequests
 
         private IRestResponse CreateUserRequest(string endPoint, User userForCreation)
         {
-            RestRequest request = new RestRequest("/users", Method.POST);
-            request.AddParameter(ApplicationJson, userForCreation.ToJson(), ParameterType.RequestBody);
-            return _client.Post(request);
+            var restRequest = Post(endPoint).AddParameter(ApplicationJson, userForCreation.ToJson(), ParameterType.RequestBody);
+            return _client.Post(restRequest);
+        }
+
+        private void AddBooksForUser(int[] bookIds, int userWishlistId)
+        {
+            for (int i = 0; i < bookIds.Length; i++)
+            {
+                _client.Post(Post($"wishlists/{userWishlistId}/books/{bookIds[i]}"));
+            }
+        }
+
+        private RestRequest Post(string endPoint)
+        {
+            RestRequest request = new RestRequest(endPoint, Method.POST);
+            return request;
         }
     }
 }
