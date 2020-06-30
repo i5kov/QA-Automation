@@ -91,7 +91,7 @@ namespace BookRequests
             RestRequest restRequest = new RestRequest($"/households/{householdId}/wishlistBooks", Method.GET);
             IRestResponse restResponse = _client.Get(restRequest);
 
-
+            Assert.IsTrue(restResponse.IsSuccessful);
         }
 
 
